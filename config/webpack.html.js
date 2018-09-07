@@ -14,7 +14,7 @@ module.exports = (env, viewPath) => {
   }
 
   const setEntryPlugins = (view) => {
-    const viewPathJs = resolve(VIEW_PATH, `${view}/index.js`)
+    const viewPathJs = resolve(VIEW_PATH, `${view}/index.jsx`)
     const viewPathHtml = resolve(VIEW_PATH, `${view}/index.html`)
 
     if (fs.existsSync(viewPathJs) && fs.existsSync(viewPathHtml)) {

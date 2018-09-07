@@ -1,21 +1,19 @@
 {
     "presets": [
-        [
-            "env",
-            {
-                "targets": {
-                    "browsers": [
-                        "Android >= 4",
-                        "iOS >= 7"
-                    ]
-                }
-            }
-        ],
+        "env",
+        "react",
         "stage-0"
     ],
     "plugins": [
-        "add-module-exports",
+        "syntax-dynamic-import",
         "transform-runtime",
         "transform-decorators-legacy"
-    ]
+    ],
+    "env": {
+        "development": {
+            "plugins": [
+                "react-hot-loader/babel"
+            ]
+        }
+    }
 }

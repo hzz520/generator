@@ -2,7 +2,6 @@ const webpack = require('webpack')
 const Merge = require('webpack-merge')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
 const { resolve } = require('path')
-const { VueLoaderPlugin } = require('vue-loader')
 
 const WebpackHtmlConfig = require('./webpack.html')
 const {
@@ -53,11 +52,8 @@ module.exports = (env, view) => {
       }
     },
     resolve: {
-      extensions: ['.js', '.vue', '.json', '.scss', '.css'],
+      extensions: ['.js', '.jsx', '.json', '.scss', '.css'],
       alias: {
-        'vue': resolve(NODE_PATH, './vue/dist/vue.esm.js'),
-        'vue-router': resolve(NODE_PATH, './vue-router/dist/vue-router.esm.js'),
-        'vuex': resolve(NODE_PATH, './vuex/dist/vuex.esm.js'),
         '@': SRC_PATH
       }
     },
@@ -67,41 +63,13 @@ module.exports = (env, view) => {
       },
       rules: [
         {
-          enforce: 'pre',
-          test: /\.(js|jsx|vue)$/,
-          include: SRC_PATH,
-          exclude: NODE_PATH,
-          use: [
-            {
-              loader: 'eslint-loader'
-            }
-          ]
-        },
-        {
           test: /\.(js|jsx)$/,
           include: SRC_PATH,
           exclude: NODE_PATH,
           use: [
-            'babel-loader'
+            'babel-loader',
+            'eslint-loader'
           ]
-        },
-        {
-          test: /\.vue$/,
-          include: SRC_PATH,
-          exclude: NODE_PATH,
-          use: {
-            loader: 'vue-loader',
-            options: {
-              preserveWhitespace: false,
-              extractCSS: true,
-              transformAssetUrls: {
-                video: ['src', 'poster'],
-                source: 'src',
-                img: 'src',
-                image: 'xlink:href'
-              }
-            }
-          }
         },
         {
           test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -144,7 +112,13 @@ module.exports = (env, view) => {
         quiet: true,
         syntax: 'scss'
       }),
-      new VueLoaderPlugin(),
+      new StyleLintPlugin({
+        context: SRC_PATH,
+        configFile: resolve(__dirname, '../.stylelintrc'),
+        files: '**/*.less',
+        quiet: true,
+        syntax: 'less'
+      }),
       new webpack.LoaderOptionsPlugin({ options: {} })
     ]
   }

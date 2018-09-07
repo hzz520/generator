@@ -1,12 +1,8 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
 
-import demo from './demo'
+import test from './test.js'
+import test1 from './test1.js'
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
-  modules: {
-    demo
-  }
-})
+export default {
+  test,
+  test1
+}

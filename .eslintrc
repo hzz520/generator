@@ -1,24 +1,33 @@
 {
-    "root": true,
     "extends": [
-        "plugin:vue/essential",
         "standard"
     ],
-    "plugins": [
-        "vue"
-    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "experimentalObjectRestSpread": true
+        }
+    },
     "env": {
         "browser": true,
         "node": true,
-        "es6": true,
-        "amd": true
+        "mocha": true,
+        "worker": true,
+        "phantomjs": true,
+        "serviceworker": true
     },
-    "parserOptions": {
-        "parser": "babel-eslint",
-        "ecmaVersion": 6,
-        "sourceType": "module"
+    "globals": {
+        "Babel": true,
+        "React": true
     },
+    "plugins": [
+        "react"
+    ],
     "rules": {
-        
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error" 
     }
 }
