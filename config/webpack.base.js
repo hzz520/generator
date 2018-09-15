@@ -54,6 +54,11 @@ module.exports = (env, view) => {
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.scss', '.css'],
       alias: {
+        'react': resolve(NODE_PATH, './react/index.js'),
+        'react-dom': resolve(NODE_PATH, './react-dom/index.js'),
+        'react-router-dom': resolve(NODE_PATH, './react-router-dom/umd/react-router-dom.min.js'),
+        'mobx': resolve(NODE_PATH, './mobx/lib/mobx.min.js'),
+        'mobx-react': resolve(NODE_PATH, './mobx-react/index.min.js'),
         '@': SRC_PATH
       }
     },
