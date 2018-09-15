@@ -68,6 +68,5 @@
     "Android >= 4",
     "iOS >= 7"
   ],
-  "dependencies": {
-  }
+  "dependencies": {}
 }

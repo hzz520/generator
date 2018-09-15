@@ -4,7 +4,6 @@
         "standard"
     ],
     "plugins": [
-        "vue"
     ],
     "env": {
         "browser": true,
@@ -12,8 +11,8 @@
         "es6": true,
         "amd": true
     },
+    "parser": "babel-eslint",
     "parserOptions": {
-        "parser": "babel-eslint",
         "ecmaVersion": 6,
         "sourceType": "module"
     },
