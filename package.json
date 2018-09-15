@@ -7,8 +7,8 @@
     "dev": "cross-env mode=dev NODE_ENV=development  webpack-dev-server --config ./config/webpack.config.js",
     "build": "cross-env mode=build NODE_ENV=production webpack --config ./config/webpack.prod.js",
     "build:analyze": "cross-env mode=build:analyze NODE_ENV=production webpack --config ./config/webpack.analyze.js",
-    "lint": "eslint --ext .js,.vue ./ && stylelint --ext .scss ./**/*.scss",
-    "fix": "eslint --ext .js,.vue ./ --fix && stylelint ./**/*.scss --fix"
+    "lint": "eslint --ext .js ./ && stylelint --ext .scss ./**/*.scss",
+    "fix": "eslint --ext .js ./ --fix && stylelint ./**/*.scss --fix"
   },
   "author": "huangzhongzhen",
   "license": "MIT",
@@ -31,7 +31,6 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
-    "eslint-plugin-vue": "^4.7.1",
     "html-webpack-plugin": "^3.2.0",
     "image-webpack-loader": "^4.3.1",
     "less": "^3.8.1",
@@ -55,8 +54,6 @@
     "stylelint-config-standard": "^18.2.0",
     "stylelint-webpack-plugin": "^0.10.5",
     "url-loader": "^1.1.1",
-    "vue-loader": "^15.4.1",
-    "vue-template-compiler": "^2.5.17",
     "webpack": "^4.16.5",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.1.0",
@@ -72,8 +69,5 @@
     "iOS >= 7"
   ],
   "dependencies": {
-    "vue": "^2.5.17",
-    "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
   }
 }
