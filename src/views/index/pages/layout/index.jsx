@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 
+import '@/assets/css/base.less'
+import './index.less'
+
 export default class Layout extends Component {
   constructor (props) {
     super(props)
@@ -8,7 +11,7 @@ export default class Layout extends Component {
     }
   }
   render () {
-    console.log(111, this.props)
+    console.log('layout')
     return (
       <div className="container">
         666

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 
+import './index.less'
+
 @inject(({ test }) => ({
   demo: test.demo,
   demo1: test.demo1,
@@ -16,7 +18,7 @@ export default class Index extends Component {
     this.state = {}
   }
   componentDidMount () {
-    console.log(this.props)
+
   }
   render () {
     let {
@@ -25,6 +27,7 @@ export default class Index extends Component {
       changeDemo,
       changeDemo1
     } = this.props
+    console.log('index')
     return (
       <div className="container">
         <div onClick={() => {

@@ -1,5 +1,6 @@
 require('./check.versions')()
 
+const { resolve } = require('path')
 const webpack = require('webpack')
 const Merge = require('webpack-merge')
 const rimraf = require('rimraf')
@@ -51,6 +52,23 @@ const WebpackProdConfig = {
       {
         test: /\.(scss)$/,
         include: SRC_PATH,
+        exclude: [NODE_PATH, resolve(SRC_PATH, './assets')],
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]-[hash:base64:5]'
+            }
+          },
+          'postcss-loader',
+          'sass-loader'
+        ]
+      },
+      {
+        test: /\.(scss)$/,
+        include: resolve(SRC_PATH, './assets'),
         exclude: NODE_PATH,
         use: [
           MiniCssExtractPlugin.loader,
@@ -62,6 +80,23 @@ const WebpackProdConfig = {
       {
         test: /\.less$/,
         include: SRC_PATH,
+        exclude: [NODE_PATH, resolve(SRC_PATH, './assets')],
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]-[hash:base64:5]'
+            }
+          },
+          'postcss-loader',
+          'less-loader'
+        ]
+      },
+      {
+        test: /\.less$/,
+        include: resolve(SRC_PATH, './assets'),
         exclude: NODE_PATH,
         use: [
           MiniCssExtractPlugin.loader,

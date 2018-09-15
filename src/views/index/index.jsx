@@ -5,8 +5,6 @@ import { Provider } from 'mobx-react'
 import router from './router'
 import stores from './store'
 
-console.log(stores)
-
 render(
   <Provider {...stores}>
     {router}

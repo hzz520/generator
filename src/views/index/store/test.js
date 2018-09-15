@@ -5,6 +5,7 @@ class Test {
   @observable demo1 = 999
 
   @action async changeDemo (payload) {
+    requestAnimationFrame()
     self.demo = payload
   }
   @action async changeDemo1 (payload) {

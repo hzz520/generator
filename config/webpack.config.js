@@ -2,11 +2,12 @@ require('./check.versions')()
 
 const webpack = require('webpack')
 const Merge = require('webpack-merge')
+const { resolve } = require('path')
 
 const {
   getView,
-  dev
-//   paths
+  dev,
+  paths
 } = require('./config')
 
 const {
@@ -17,9 +18,10 @@ const {
   quiet
 } = dev
 
-// const {
-// //   DIST_PATH
-// } = paths
+const {
+  SRC_PATH,
+  NODE_PATH
+} = paths
 
 const WebpackBaseConfig = require('./webpack.base')
 
@@ -35,7 +37,25 @@ const WebpackDevConfig = {
     rules: [
       {
         test: /\.scss$/,
-        exclude: /node_modules/,
+        include: SRC_PATH,
+        exclude: [NODE_PATH, resolve(SRC_PATH, './assets')],
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]-[hash:base64:5]'
+            }
+          },
+          'postcss-loader',
+          'sass-loader'
+        ]
+      },
+      {
+        test: /\.scss$/,
+        include: resolve(SRC_PATH, './assets'),
+        exclude: NODE_PATH,
         use: [
           'style-loader',
           'css-loader',
@@ -45,7 +65,25 @@ const WebpackDevConfig = {
       },
       {
         test: /\.less$/,
-        exclude: /node_modules/,
+        include: SRC_PATH,
+        exclude: [NODE_PATH, resolve(SRC_PATH, './assets')],
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]-[hash:base64:5]'
+            }
+          },
+          'postcss-loader',
+          'less-loader'
+        ]
+      },
+      {
+        test: /\.less$/,
+        include: resolve(SRC_PATH, './assets'),
+        exclude: NODE_PATH,
         use: [
           'style-loader',
           'css-loader',
