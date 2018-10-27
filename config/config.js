@@ -9,7 +9,7 @@ const NODE_PATH = resolve(__dirname, '../node_modules')
 module.exports = {
   dev: {
     host: '0.0.0.0',
-    port: 8089,
+    port: 8081,
     publicPath: '/',
     autoOpenBrower: true,
     quiet: false

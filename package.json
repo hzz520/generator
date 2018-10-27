@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env mode=dev NODE_ENV=development  webpack-dev-server --config ./config/webpack.config.js",
-    "build": "cross-env mode=build NODE_ENV=production webpack --config ./config/webpack.prod.js",
+    "dev": "cross-env type=dev NODE_ENV=development  webpack-dev-server --config ./config/webpack.config.js",
+    "build": "cross-env type=build NODE_ENV=production webpack --config ./config/webpack.prod.js",
     "build:analyze": "cross-env mode=build:analyze NODE_ENV=production webpack --config ./config/webpack.analyze.js",
     "lint": "eslint --ext .js,.jsx ./ && stylelint --ext .scss ./**/*.scss",
     "fix": "eslint --ext .js,.jsx ./ --fix && stylelint ./**/*.scss --fix"
@@ -38,6 +38,7 @@
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.4.2",
+    "mobx-react-devtools": "^6.0.3",
     "node-sass": "^4.9.3",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "postcss-cssnext": "^3.1.0",

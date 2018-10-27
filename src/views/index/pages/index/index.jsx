@@ -27,7 +27,7 @@ export default class Index extends Component {
       changeDemo,
       changeDemo1
     } = this.props
-    console.log('index')
+
     return (
       <div className="container">
         <div onClick={() => {

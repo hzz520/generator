@@ -1,11 +1,10 @@
 import { observable, action } from 'mobx'
 
 class Test {
-  @observable demo = 666
+  @observable demo = 111
   @observable demo1 = 999
 
   @action async changeDemo (payload) {
-    requestAnimationFrame()
     self.demo = payload
   }
   @action async changeDemo1 (payload) {

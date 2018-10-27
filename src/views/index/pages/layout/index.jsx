@@ -11,10 +11,8 @@ export default class Layout extends Component {
     }
   }
   render () {
-    console.log('layout')
     return (
       <div className="container">
-        666
         {this.props.children}
       </div>
     )

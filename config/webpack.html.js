@@ -38,10 +38,10 @@ module.exports = (env, viewPath) => {
   } else if (viewPath === undefined) {
     // console.log(process.env)
     let {
-      mode
+      type
     } = process.env
     // let temp = env === 'development' ? 'dev' : 'build'
-    console.error(chalk.red('you should run script with'), chalk.red(`npm run ${mode} -- --view all|[view] `), chalk.gray('// 多页应用对应的页面文件夹'))
+    console.error(chalk.red('you should run script with'), chalk.red(`npm run ${type} -- --view all|[view] `), chalk.gray('// 多页应用对应的页面文件夹'))
     process.exit()
   } else {
     const subDirs = fs.readdirSync(VIEW_PATH)
