@@ -1,0 +1,5 @@
+src/plugin/**/posterDrawUtil.js
+src/plugin/**/npm/*
+src/miniprogram/**/*
+dist/**/*
+gulpTasks/**/*

@@ -1,0 +1,43 @@
+{
+    "presets": [
+        [
+            "env",
+            {
+                "modules": "commonjs",
+                "targets": [
+                    "node"
+                ]
+            }
+        ],
+        "stage-0"
+    ],
+    "plugins": [
+        [
+            "module-resolver", 
+            {
+                "root": "./src/plugin/",
+                "alias": {
+                    "@utils": "./utils",
+                    "@components": "./components",
+                    "@assets": "./assets",
+                    "@base64": "./assets/base64_images",
+                    "@images": "./assets/images",
+                    "@css": "./assets/css",
+                    "@pages": "./pages"
+                },
+                "cwd": "./src/plugin/"
+            }
+        ],
+        // [
+        //     "transform-runtime",
+        //     {
+        //         "corejs": false,
+        //         "helpers": false,
+        //         "regenerator": false,
+        //         "useESModules": false
+        //     }
+        // ],
+        "add-module-exports",
+        "transform-async-to-generator"
+    ]
+}
