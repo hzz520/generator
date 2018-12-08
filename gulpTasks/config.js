@@ -141,7 +141,7 @@ function getImagesTasks (isWatch, isMinify) {
 }
 
 function getCopyTasks (isWatch, isMinify) {
-    let res = (isWatch ? watch : gulp.src)(getCopyPattern(), { }, (e) => {
+    let res = (isWatch ? watch : gulp.src)([ ...getCopyPattern(), '!src/*.md'], {}, (e) => {
         if (e.event === 'unlink') {
             fs.unlinkSync(e.history.pop())
         }
