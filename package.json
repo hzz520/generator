@@ -70,7 +70,7 @@
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5",
-    "webpack-hash-exclude-plugin": "^1.0.3",
+    "webpack-hash-exclude-plugin": "^1.0.4",
     "webpack-merge": "^4.1.4"
   },
   "engines": {
