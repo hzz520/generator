@@ -16,6 +16,7 @@
   "author": "huangzhongzhen",
   "license": "MIT",
   "devDependencies": {
+    "acorn-dynamic-import": "^3.0.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
     "babel-loader": "^7.1.5",
