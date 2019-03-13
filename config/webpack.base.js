@@ -11,16 +11,17 @@ const {
 const {
   SRC_PATH,
   DIST_PATH,
-  NODE_PATH
+  NODE_PATH,
+  VIEW_PATH
 } = paths
 
 module.exports = (env, view) => {
   let WebpackBaseConfig = {
-    mode: 'development',
+    mode: env,
     entry: {},
     output: {
       path: DIST_PATH,
-      filename: 'js/[name].[hash].js'
+      filename: 'js/[name].js'
     },
     optimization: {
       occurrenceOrder: true,
@@ -47,6 +48,12 @@ module.exports = (env, view) => {
             chunks: 'all',
             test: /[\\/]node_modules[\\/]/,
             priority: -10
+          },
+          styles: {
+            name: 'styles',
+            test: /\.less$/,
+            chunks: 'all',
+            enforce: true
           }
         }
       }
@@ -54,17 +61,29 @@ module.exports = (env, view) => {
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.scss', '.css'],
       alias: {
-        'react': resolve(NODE_PATH, './react/index.js'),
-        'react-dom': resolve(NODE_PATH, './react-dom/index.js'),
-        'react-router-dom': resolve(NODE_PATH, './react-router-dom/umd/react-router-dom.min.js'),
-        'mobx': resolve(NODE_PATH, './mobx/lib/mobx.min.js'),
-        'mobx-react': resolve(NODE_PATH, './mobx-react/index.min.js'),
-        '@': SRC_PATH
+        // 'react': resolve(NODE_PATH, './react/index.js'),
+        // 'react-dom': resolve(NODE_PATH, './react-dom/index.js'),
+        // 'react-router-dom': resolve(NODE_PATH, './react-router-dom/umd/react-router-dom.min.js'),
+        // 'react-id-swiper': resolve(NODE_PATH, './react-id-swiper/lib/index.js'),
+        // 'react-transition-group': resolve(NODE_PATH, './react-transition-group/dist/react-transition-group.js'),
+        // 'mobx': resolve(NODE_PATH, './mobx/lib/mobx.min.js'),
+        // 'mobx-react': resolve(NODE_PATH, './mobx-react/index.min.js'),
+        // 'querystring': resolve(NODE_PATH, './querystring/index.js'),
+        // 'loadsh': resolve(NODE_PATH, './lodash/lodash.min.js'),
+        // 'axios': resolve(NODE_PATH, './axios/dist/axios.min.js'),
+        // 'rc-form': resolve(NODE_PATH, './rc-form/lib/index.js'),
+        // 'js-cookie': resolve(NODE_PATH, './js-cookie'),
+        // 'hsitory': resolve(NODE_PATH, './history/umd/hsitory.min.js'),
+        // 'crypto-js': resolve(NODE_PATH, './crypto-js'),
+        '@': SRC_PATH,
+        '@utils': resolve(VIEW_PATH, './index/utils'),
+        '@components': resolve(VIEW_PATH, './index/components'),
+        '@pages': resolve(VIEW_PATH, './index/pages')
       }
     },
     module: {
       noParse: (content) => {
-        return /Zepto|zepto|jQuery/.test(content)
+        return /Zepto|zepto|jQuery|WBAPP/.test(content)
       },
       rules: [
         {
@@ -74,21 +93,6 @@ module.exports = (env, view) => {
           use: [
             'babel-loader',
             'eslint-loader'
-          ]
-        },
-        {
-          test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-          include: SRC_PATH,
-          exclude: NODE_PATH,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                limit: 10000,
-                name: 'assets/imgs/[name].[hash:7].[ext]'
-              }
-            },
-            'image-webpack-loader'
           ]
         },
         {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Loadable from 'react-loadable'
-import Loading from '../loading'
+import Loading from '../loading/index'
 
 export default (importComponent) => {
   const LoadComponnent = Loadable({

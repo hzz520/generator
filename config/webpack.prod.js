@@ -6,6 +6,7 @@ const Merge = require('webpack-merge')
 const rimraf = require('rimraf')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const MyPlugin = require('webpack-hash-exclude-plugin')
 
 const {
   publicPath,
@@ -35,13 +36,15 @@ let view = getView(env)
 //   rimraf.sync(`${DIST_PATH}/js/vendor.*.js`)
 //   rimraf.sync(`${DIST_PATH}/js/manifest.*.js`)
 // }
+rimraf.sync(resolve(__dirname, '../.tiny.cache.json'))
 rimraf.sync(`${DIST_PATH}/*`)
 
 const WebpackProdConfig = {
+  devtool: '#cheap-source-map',
   entry: {},
   output: {
     publicPath,
-    filename: 'js/[name].[chunkhash].js',
+    filename: 'js/[name].js',
     chunkFilename: 'js/[name].[chunkhash].js'
   },
   optimization: {
@@ -49,6 +52,24 @@ const WebpackProdConfig = {
   },
   module: {
     rules: [
+      {
+        test: /\.(jpe?g|png)$/,
+        use: [
+          {
+            loader: require.resolve('url-loader'),
+            options: {
+              limit: 1000,
+              name: 'assets/imgs/[name].[hash:7].[ext]'
+            }
+          },
+          {
+            loader: require.resolve('nokey-tinypng-webpack-loader'),
+            options: {
+              name: '[name].[ext]'
+            }
+          }
+        ]
+      },
       {
         test: /\.(scss)$/,
         include: SRC_PATH,
@@ -80,7 +101,7 @@ const WebpackProdConfig = {
       {
         test: /\.less$/,
         include: SRC_PATH,
-        exclude: [NODE_PATH, resolve(SRC_PATH, './assets')],
+        exclude: /(node_modules|assets|global)/,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -96,7 +117,7 @@ const WebpackProdConfig = {
       },
       {
         test: /\.less$/,
-        include: resolve(SRC_PATH, './assets'),
+        include: /(assets|global)/,
         exclude: NODE_PATH,
         use: [
           MiniCssExtractPlugin.loader,
@@ -108,8 +129,12 @@ const WebpackProdConfig = {
     ]
   },
   plugins: [
+    new MyPlugin({
+      excludeJs: ['vendor', 'styles', 'index'],
+      excludeCss: ['styles']
+    }),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].[contenthash].css',
+      filename: 'css/[name].css',
       allchunks: true
     }),
     // keep module.id stable when vendor modules does not change

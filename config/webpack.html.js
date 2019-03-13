@@ -4,7 +4,8 @@ const { resolve } = require('path')
 const chalk = require('chalk')
 
 const {
-  VIEW_PATH
+  VIEW_PATH,
+  VIEW_PRE
 } = require('./config').paths
 
 module.exports = (env, viewPath) => {
@@ -22,9 +23,14 @@ module.exports = (env, viewPath) => {
 
       htmlConf.plugins.push(new HtmlWebpackPlugin({
         inject: true,
-        chunks: ['manifest', 'vendor', `${view}`],
+        chunks: ['styles', 'manifest', 'vendor', `${view}`],
         template: viewPathHtml,
-        filename: `html/${view}.html`
+        filename: `${VIEW_PRE}/${view}.html`
+        // minify: process.env.NODE_ENV === 'production' ? {
+        //   removeComments: true,
+        //   collapseWhitespace: true,
+        //   minifyJS: true
+        // } : false
       }))
     } else {
       // throw new Error('Not Found', viewPathJs, 'or', viewPathHtml)
@@ -42,7 +48,7 @@ module.exports = (env, viewPath) => {
     } = process.env
     // let temp = env === 'development' ? 'dev' : 'build'
     console.error(chalk.red('you should run script with'), chalk.red(`npm run ${type} -- --view all|[view] `), chalk.gray('// 多页应用对应的页面文件夹'))
-    process.exit()
+    process.exit(1)
   } else {
     const subDirs = fs.readdirSync(VIEW_PATH)
     subDirs.map(view => {

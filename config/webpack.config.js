@@ -15,7 +15,9 @@ const {
   host,
   port,
   autoOpenBrower,
-  quiet
+  quiet,
+  openPage,
+  proxy
 } = dev
 
 const {
@@ -36,6 +38,21 @@ const WebpackDevConfig = {
   module: {
     rules: [
       {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        include: SRC_PATH,
+        exclude: NODE_PATH,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: 'assets/imgs/[name].[hash:7].[ext]'
+            }
+          },
+          'image-webpack-loader'
+        ]
+      },
+      {
         test: /\.scss$/,
         include: SRC_PATH,
         exclude: [NODE_PATH, resolve(SRC_PATH, './assets')],
@@ -66,14 +83,15 @@ const WebpackDevConfig = {
       {
         test: /\.less$/,
         include: SRC_PATH,
-        exclude: [NODE_PATH, resolve(SRC_PATH, './assets')],
+        // exclude: [NODE_PATH, resolve(SRC_PATH, './assets'), resolve(VIEW_PATH, './index/components/common/toast')],
+        exclude: /(node_modules|assets|global)/,
         use: [
           'style-loader',
           {
             loader: 'css-loader',
             options: {
               modules: true,
-              localIdentName: '[name]-[hash:base64:5]'
+              localIdentName: '[name]-[local]-[hash:base64:5]'
             }
           },
           'postcss-loader',
@@ -82,7 +100,8 @@ const WebpackDevConfig = {
       },
       {
         test: /\.less$/,
-        include: resolve(SRC_PATH, './assets'),
+        // include: [resolve(SRC_PATH, './assets'), resolve(VIEW_PATH, './index/components/common/toast'), resolve(SRC_PATH, './assets')],
+        include: /(assets|global)/,
         exclude: NODE_PATH,
         use: [
           'style-loader',
@@ -97,12 +116,19 @@ const WebpackDevConfig = {
     new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {
+    contentBase: resolve(__dirname, '../build'),
     hot: true,
+    inline: true,
+    historyApiFallback: false,
+    useLocalIp: true,
     compress: true,
+    writeToDisk: false,
     host,
     port,
     quiet,
-    open: autoOpenBrower
+    open: autoOpenBrower,
+    openPage,
+    proxy: proxy
   }
 }
 
